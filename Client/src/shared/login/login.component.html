@@ -1,0 +1,38 @@
+<div class="container-fluid">
+  <div class="card shadow-lg border-0 rounded-3 p-3">
+    <div class="h3 mb-3 fw-bold">LOGIN</div>
+    <form #loginForm="ngForm" (ngSubmit)="onLoginBtnClicked()">
+
+      <div class="row g-2">
+        <div class="col-12">
+          <div class="form-floating" [class.error-border]="!email.valid && email.touched"
+               [class.success-border]="email.valid && email.touched">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
+                   name="emailID" [(ngModel)]="loginData.emailID" #email="ngModel" email required>
+            <label for="floatingInput">Email address</label>
+          </div>
+          <label class="err-msg" [hidden]="email.valid || email.untouched" for="floatingInput">Enter valid email</label>
+        </div>
+        <div class="col-12">
+          <div class="form-floating" [class.error-border]="!password.valid && password.touched"
+               [class.success-border]="password.valid && password.touched">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+                   name="password" [(ngModel)]="loginData.password" #password="ngModel" [minlength]="8" required>
+            <label for="floatingPassword">Password</label>
+          </div>
+          <label class="err-msg" [hidden]="password.valid || password.untouched" for="floatingPassword">Enter valid
+            Password</label>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="login-btn my-2 d-flex justify-content-end">
+          <input type="submit" value="Login" class="btn btn-primary" [disabled]="loginForm.invalid">
+        </div>
+      </div>
+
+    </form>
+    <div class="no-account-text text-danger">
+      Don't have an account register <a href="/register">here.</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+.tickets-container {
+  width: 70%;
+  overflow: hidden;
+  max-height: calc(100vh - 55px);
+  height: fit-content;
+  padding: 15px;
+  overflow-y: auto;
+  scrollbar-color: inherit;
+  font-size: 14px;
+  margin-top: 15px;
+}

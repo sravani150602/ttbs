@@ -1,0 +1,90 @@
+.container-fluid {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.container-fluid .container {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+}
+
+.container-fluid .container .main {
+  width: 100%;
+  height: 100%;
+}
+
+.container-fluid .container .main .nav {
+  height: 100%;
+  width: 200px;
+  max-width: 25%;
+  min-width: 200px;
+  display: flex;
+  margin-top: 50px;
+  justify-content: flex-start;
+  padding-top: 15%;
+  align-items: center;
+  border-right: 1px solid rgba(31, 35, 31, 0.1);
+  box-shadow: rgba(0, 0, 0, 0.35) 0 0 15px;
+  clip-path: inset(0px -15px 0px 0px);
+}
+
+.container-fluid .container .main .nav button {
+  font-family: 'Poppins', sans-serif;
+  width: 150px;
+  max-width: 90%;
+  color: #003ea8;
+}
+
+.container-fluid .container .main .nav button.active {
+  background-color: #003ea8;
+  color: aliceblue;
+}
+
+.container-fluid .container .main .tab-content {
+  width: 100%;
+}
+
+.container-fluid .container .main .tab-content .dashboard-header {
+  width: 100%;
+  height: 50px;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 99, 255, 0.81);
+  color: aliceblue;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+}
+
+.container-fluid .container .main .tab-content .dashboard-header .container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-fluid .container .main .tab-content .dashboard-header .container .h4 {
+  text-align: center;
+  width: fit-content;
+}
+
+.container-fluid .container .main .tab-content .dashboard-header .container button {
+  position: fixed;
+  right: 0;
+  margin-right: 50px;
+}
+
+.container-fluid .container .main .tab-content .tab-pane {
+  margin-top: 50px;
+}
+
+.login-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

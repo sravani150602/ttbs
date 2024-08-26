@@ -1,0 +1,17 @@
+<div class="modal" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content card">
+      <div class="modal-body">
+        <div class="prg-warn" *ngIf="warn">
+          <i class="fa-solid fa-circle-exclamation text-warning fs-1"></i>
+        </div>
+        <div class="spinner-border text-danger" role="status" *ngIf="!warn">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="msg mt-3" [innerHTML]="msg"></div>
+        <button class="btn btn-sm btn-danger mt-2" *ngIf="showBtn" (click)="onBtnClick()">{{prgBtnTxt}}</button>
+      </div>
+    </div>
+  </div>
+</div>

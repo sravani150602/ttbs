@@ -1,0 +1,60 @@
+.container-fluid {
+  height: 100Vh;
+  overflow: hidden;
+  background: url("../../assets/images/train_02.jpg");
+  background-size: cover;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  position: relative;
+}
+
+.register-form {
+  width: 40%;
+  min-width: 250px;
+  max-width: 500px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.register-form .form-control,.form-select{
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.row .form-floating label {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+}
+
+.row .form-floating .password {
+  border-left: 7px solid green;
+}
+
+.title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  color: #170f10;
+}
+
+.reg-btn input {
+  width: 150px;
+  height: 45px;
+  border-radius: 15px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+}
+
+.msg{
+  margin-top: 2px;
+  color: gray;
+  font-size: 10px;
+}
+
+.reg-btn input:hover {
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}

@@ -1,0 +1,164 @@
+<div class="container p-3">
+
+  <div class="d-flex justify-content-end w-100">
+    <button type="button" class="btn btn-sm btn-primary" (click)="onAddTrain()" title="Schedule a new train">
+      <i class="fa-solid fa-plus"></i>&nbsp; Schedule
+    </button>
+  </div>
+
+
+  <div class="container mt-3 mb-3">
+    <ng-container *ngIf="getAvailableTrains(trains).length>=1;else noTrains">
+      <table class="table table-hover table-bordered">
+        <thead class="table-dark">
+        <tr>
+          <th scope="col" class="fw-bold">#</th>
+          <th scope="col" class="fw-bold">Train ID</th>
+          <th scope="col" class="fw-bold">Train Name</th>
+          <th scope="col" class="fw-bold">Start</th>
+          <th scope="col" class="fw-bold">Destination</th>
+          <th scope="col" class="fw-bold">Journey Info</th>
+          <th scope="col" class="fw-bold">Ticket Fare</th>
+          <th scope="col" class="fw-bold">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let t of getAvailableTrains(trains);let i = index">
+          <th scope="row">{{i + 1}}</th>
+          <td>{{t.trainID}}</td>
+          <td>{{t.name}}</td>
+          <td>{{t.start}} <br><span class="date-time"> {{t.startTime | date:'long'}}</span></td>
+          <td>{{t.destination}}<br> <span class="date-time"> {{t.endTime | date:'long'}}</span></td>
+          <td><span class="fw-bold">{{t.stops}}</span> Stops
+            <br>
+            <span class="fw-bold">{{t.journeyTime}}</span> Hours
+          </td>
+          <td>{{t.ticketFare | currency:'₹ '}}</td>
+          <td>
+            <!--          <button class="btn btn-sm btn-warning" *ngIf="t.status">Cancel</button>-->
+            <!--          &nbsp;&nbsp;-->
+            <button class="btn btn-sm btn-warning" title="cancel ticket" (click)="cancelTrain(t)"><i class="fa-solid fa-trash-can"></i>
+            </button>
+            &nbsp;&nbsp;
+            <button class="btn btn-sm btn-info" title="update train" (click)="onUpdateTrain(t)"><i class="fa-solid fa-pen-to-square"></i>
+            </button>
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
+    </ng-container>
+    <ng-template #noTrains>
+      <span class="text-danger">No available trains</span>
+    </ng-template>
+  </div>
+
+  <!-- Add train Modal -->
+  <div class="modal" id="addTrainModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+       aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="staticBackdropLabel">Schedule a train</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [noValidate]="false" #form=ngForm (ngSubmit)="onSave()">
+            <div class="row g-2">
+              <div class="col-12">
+                <div class="input-group">
+                  <span class="input-group-text" id="basic-addon1">Train ID</span>
+                  <input type="text" class="form-control" placeholder="Train ID (T1234)" aria-label="Train ID"
+                         aria-describedby="basic-addon1" name="trainID" [value]="trainData.trainID" disabled>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-floating" [class.error-border]="!name.valid && name.touched"
+                     [class.success-border]="name.valid && name.touched">
+                  <input type="text" class="form-control" id="name" placeholder="Train name" name="name"
+                         [value]="trainData.name" required [(ngModel)]="trainData.name" #name="ngModel">
+                  <label for="name">Train Name</label>
+                </div>
+                <label class="err-msg" [hidden]="name.valid || name.untouched" for="name">Fill the field</label>
+              </div>
+              <div class="col-6">
+                <div class="form-floating" [class.error-border]="!start.valid && start.touched"
+                     [class.success-border]="start.valid && start.touched">
+                  <input type="text" class="form-control" name="start" id="start" placeholder="Start location" required
+                         [(ngModel)]="trainData.start" #start="ngModel">
+                  <label for="start">Start location</label>
+                </div>
+                <label class="err-msg" [hidden]="start.valid || start.untouched" for="name">Fill the field</label>
+              </div>
+              <div class="col-6">
+                <div class="form-floating" [class.error-border]="!destination.valid && destination.touched"
+                     [class.success-border]="destination.valid && destination.touched">
+                  <input type="text" class="form-control" name="destination" id="destination" placeholder="Destination"
+                         required [(ngModel)]="trainData.destination" #destination="ngModel">
+                  <label for="destination">Destination</label>
+                </div>
+                <label class="err-msg" [hidden]="destination.valid || destination.untouched" for="name">
+                  Fill the field</label>
+              </div>
+              <div class="col-6">
+                <div class="form-floating" [class.error-border]="!startTime.valid && startTime.touched"
+                     [class.success-border]="startTime.valid && startTime.touched">
+                  <input type="datetime-local" class="form-control" name="startTime" id="startTime"
+                         placeholder="Start Time" required [(ngModel)]="trainData.startTime"
+                         #startTime="ngModel">
+                  <label for="startTime">Start Time</label>
+                </div>
+                <label class="err-msg" [hidden]="startTime.valid || startTime.untouched" for="name">
+                  Fill the field</label>
+              </div>
+              <div class="col-6">
+                <div class="form-floating" [class.error-border]="!endTime.valid && endTime.touched"
+                     [class.success-border]="endTime.valid && name.touched">
+                  <input type="datetime-local" name="endTime" class="form-control" id="endTime"
+                         placeholder="Destination time" required [(ngModel)]="trainData.endTime" #endTime="ngModel">
+                  <label for="startTime">Destination Time</label>
+                </div>
+                <label class="err-msg" [hidden]="endTime.valid || endTime.untouched" for="name">Fill the field</label>
+              </div>
+              <div class="col-6">
+                <div class="form-floating" [class.error-border]="!ticketFare.valid && ticketFare.touched"
+                     [class.success-border]="ticketFare.valid && ticketFare.touched">
+                  <input type="number" class="form-control" name="ticketFare" id="ticketFare" placeholder="Ticket fare"
+                         required [(ngModel)]="trainData.ticketFare" #ticketFare="ngModel">
+                  <label for="destination">Ticket fare (in ₹)</label>
+                </div>
+                <label class="err-msg" [hidden]="ticketFare.valid || ticketFare.untouched" for="name">
+                  Fill the field
+                </label>
+              </div>
+              <div class="col-6">
+                <div class="form-floating" [class.error-border]="!stops.valid && stops.touched"
+                     [class.success-border]="stops.valid && stops.touched">
+                  <input type="number" name="stops" class="form-control" id="stops"
+                         placeholder="Destination time" required [(ngModel)]="trainData.stops" #stops="ngModel">
+                  <label for="startTime">No.of Stops</label>
+                </div>
+                <label class="err-msg" [hidden]="stops.valid || stops.untouched" for="name">Fill the field</label>
+              </div>
+              <div class="col-6">
+                <div class="form-floating" [class.error-border]="!journeyTime.valid && journeyTime.touched"
+                     [class.success-border]="journeyTime.valid && journeyTime.touched">
+                  <input type="text" class="form-control" name="journeyTime" id="journeyTime"
+                         placeholder="journey time"
+                         required [(ngModel)]="trainData.journeyTime" #journeyTime="ngModel">
+                  <label for="destination">Journey Time (in Hr)</label>
+                </div>
+                <label class="err-msg" [hidden]="journeyTime.valid || journeyTime.untouched" for="name">
+                  Fill the field
+                </label>
+              </div>
+              <div class="col-12 save-btn w-100 d-flex align-content-end justify-content-end">
+                <input class="btn btn-success" type="submit" value="Save" [disabled]="form.invalid"/>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

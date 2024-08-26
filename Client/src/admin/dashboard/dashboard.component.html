@@ -1,0 +1,58 @@
+<div class="container-fluid m-0 p-0">
+  <app-toast></app-toast>
+  <div class="container m-0 p-0">
+    <ng-container *ngIf="isAdmin;else login">
+      <div class="main d-flex align-items-start">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+             aria-orientation="vertical">
+          <!--        TODO-->
+          <!--          <button class="nav-link " id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home"-->
+          <!--                  type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Dashboard-->
+          <!--          </button>-->
+          <button class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill"
+                  data-bs-target="#v-pills-profile"
+                  type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+            <i class="fa-solid fa-train-subway"></i>&nbsp;&nbsp; Trains
+          </button>
+          <button class="nav-link" id="v-pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#v-pills-disabled"
+                  type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="false">
+            <i class="fa-solid fa-ticket"></i>&nbsp; Tickets
+          </button>
+
+        </div>
+        <div class="tab-content m-0 p-0" id="v-pills-tabContent">
+          <div class="dashboard-header position-absolute">
+            <div class="container">
+              <div class="h4 p-2 text-center">{{title}}</div>
+              <button class="btn btn-sm btn-warning fw-bold" (click)="logout()" title="logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Log out
+              </button>
+            </div>
+
+          </div>
+          <!--        TODO-->
+          <!--          <div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"-->
+          <!--               tabindex="0">-->
+          <!--            <app-dashboard-home></app-dashboard-home>-->
+          <!--          </div>-->
+          <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel"
+               aria-labelledby="v-pills-profile-tab"
+               tabindex="0">
+            <app-train (tc)="showToast($event)"></app-train>
+          </div>
+          <div class="tab-pane fade" id="v-pills-disabled" role="tabpanel" aria-labelledby="v-pills-disabled-tab"
+               tabindex="0">
+            <app-ticket></app-ticket>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #login>
+      <div class="login-container bg-body-tertiary">
+        <app-login (onLogin)="onLoginBtnClicked($event)"></app-login>
+      </div>
+    </ng-template>
+  </div>
+</div>
+

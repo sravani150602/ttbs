@@ -1,0 +1,26 @@
+.container-fluid {
+  width: 100%;
+}
+
+.card {
+  width: 350px;
+  min-width: 300px !important;
+  background-color: rgba(255, 255, 255, .9);
+}
+
+.form-control{
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.login-btn input {
+  width: 100px;
+  height: 45px;
+  border-radius: 15px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+}
+
+.no-account-text{
+  font-size: 13px;
+}

@@ -1,0 +1,25 @@
+.modal-dialog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  width: fit-content;
+  min-width: 200px;
+  max-width: 500PX;
+  min-height: 120px;
+}
+
+.modal-body {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.msg{
+  font-family: 'Poppins', sans-serif;
+}

@@ -1,0 +1,84 @@
+<div class="container-fluid m-0 p-0">
+  <app-progress-modal [msg]="prgMsg"></app-progress-modal>
+  <app-toast></app-toast>
+  <div class="overlay"></div>
+  <div class="container m-0 p-0 d-flex justify-content-center align-items-center">
+    <div class="register-form card p-4">
+      <div class="title mb-3">New User Registration</div>
+      <form #regForm="ngForm" (ngSubmit)="onRegisterUser()">
+        <div class="row g-2">
+          <div class="col-12">
+            <div class="form-floating mt-2" [class.error-border]="!name.valid && name.touched"
+                 [class.success-border]="name.valid && name.touched">
+              <input type="text" class="form-control" id="name" placeholder="Full name"
+                     name="name" [(ngModel)]="registerData.name" #name="ngModel" required>
+              <label for="name">Full name</label>
+            </div>
+            <label class="err-msg" [hidden]="name.valid || name.untouched" for="name">Fill the field</label>
+          </div>
+          <div class="col-6">
+            <div class="form-floating" [class.error-border]="!email.valid && email.touched"
+                 [class.success-border]="email.valid && email.touched">
+              <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
+                     name="emailID" [(ngModel)]="registerData.emailID" #email="ngModel" email required>
+              <label for="floatingInput">Email address</label>
+            </div>
+            <label class="err-msg" [hidden]="email.valid || email.untouched" for="name">Enter valid email</label>
+          </div>
+          <div class="col-6">
+            <div class="form-floating" [class.error-border]="!phone.valid && phone.touched"
+                 [class.success-border]="phone.valid && phone.touched">
+              <input type="tel" class="form-control" id="phone" placeholder="phone number"
+                     name="phone" [(ngModel)]="registerData.phone" #phone="ngModel"
+                     minlength="10" maxlength="10" required>
+              <label for="phone">Phone number</label>
+            </div>
+            <label class="err-msg" [hidden]="phone.valid || phone.untouched" for="name">Enter valid phone number</label>
+          </div>
+          <div class="col-6">
+            <div class="form-floating" [class.error-border]="selectedGender==='Select Gender' && gender.touched"
+                 [class.success-border]="selectedGender!=='Select Gender' && name.touched">
+              <select class="form-select" id="floatingInput1"
+                      name="selectedGender" [(ngModel)]="selectedGender" (change)="onGenderChange()" #gender="ngModel"
+                      required>
+                <option selected>Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Others">Others</option>
+              </select>
+              <label for="floatingInput">Gender</label>
+            </div>
+            <label class="err-msg" [hidden]="selectedGender!=='Select Gender' || gender.untouched" for="name">
+              Select a gender from option
+            </label>
+          </div>
+          <div class="col-6">
+            <div class="form-floating" [class.error-border]="!age.valid && age.touched"
+                 [class.success-border]="age.valid && age.touched">
+              <input type="number" class="form-control" id="age" placeholder="phone number"
+                     name="age" [(ngModel)]="registerData.age" #age="ngModel" required>
+              <label for="phone">Age</label>
+            </div>
+            <label class="err-msg" [hidden]="age.valid || age.untouched" for="name">Enter valid age</label>
+          </div>
+          <div class="col-12">
+            <div class="form-floating" [class.error-border]="!password.valid && password.touched"
+                 [class.success-border]="password.valid && password.touched">
+              <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+                     name="password" [(ngModel)]="registerData.password" #password="ngModel" minlength="8" required>
+              <label for="floatingPassword">Password</label>
+            </div>
+            <div class="msg">Password must be minimum 8 characters</div>
+            <label class="err-msg" [hidden]="password.valid || password.untouched" for="name">Enter valid
+              Password</label>
+          </div>
+        </div>
+
+        <div class="reg-btn mt-2 d-flex justify-content-end">
+          <input type="submit" value="Register" class="btn btn-primary"
+                 [disabled]="regForm.invalid || registerData.gender==null">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

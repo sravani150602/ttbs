@@ -1,0 +1,48 @@
+<div class="container-fluid mb-3">
+  <div class="container mb-3 d-flex flex-column justify-content-center align-items-center">
+    <div class="tickets-container">
+      <ng-container *ngIf="tickets.length>=1;else noTickets">
+        <div class="card m-1 mb-3 p-3 shadow" *ngFor="let t of tickets">
+          <div class="row">
+            <div class="col-12 text-center text-danger fw-bold py-1" *ngIf="!t.train?.status">
+              Train Cancelled
+            </div>
+            <div class="col-6">
+              <span class="h-text fw-bold">Ticket ID: </span> <span class="a-text">{{t._id}}</span>
+            </div>
+            <div class="col-6">
+              <span class="h-text fw-bold">Train ID: </span> <span class="a-text">{{t.train?.trainID}}</span>
+            </div>
+            <div class="col-12">
+              <span class="h-text fw-bold">Train Name: </span><span class="a-text">{{t.train?.name}}</span></div>
+            <div class="col-6">
+              <span class="h-text fw-bold">Start Location: </span> <span class="a-text">{{t.train?.start}}</span>
+            </div>
+            <div class="col-6">
+              <span class="h-text fw-bold">Destination: </span><span class="a-text">{{t.train?.destination}}</span>
+            </div>
+            <div class="col-6">
+              <span class="h-text fw-bold">Start Time: </span>
+              <span class="a-text">{{t.train?.startTime | date:'medium'}}</span>
+            </div>
+            <div class="col-6">
+              <span class="h-text fw-bold">Destination Time: </span> <span
+              class="a-text">{{t.train?.endTime | date:'medium'}}</span>
+            </div>
+            <div class="col-6">
+              <span class="h-text fw-bold">Ticket Fare: </span> <span
+              class="a-text">{{t.train?.ticketFare | currency:'₹ '}}</span>
+            </div>
+            <div class="col-6">
+              <span class="h-text fw-bold">Journey: </span> <span
+              class="a-text"><b>{{t.train?.stops}}</b> stops <b>{{t.train?.journeyTime}}</b> Hr</span>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #noTickets>
+        <span class="text-danger mt-5">no tickets created</span>
+      </ng-template>
+    </div>
+  </div>
+</div>

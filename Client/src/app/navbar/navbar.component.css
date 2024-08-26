@@ -1,0 +1,17 @@
+.navbar {
+  --bs-navbar-padding-y: 0.4rem !important;
+  background-color: rgba(213, 213, 213, 0.3);
+}
+
+.navbar .nav-item .nav-link {
+  padding-right: 10px;
+  padding-left: 10px;
+  border-bottom: 2px solid transparent;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+}
+
+.navbar .nav-item .nav-link:hover {
+  color: #00d8ff;
+  border-bottom: 2px solid #00d8ff;
+}

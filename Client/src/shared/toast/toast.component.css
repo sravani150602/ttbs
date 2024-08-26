@@ -1,0 +1,39 @@
+.toast {
+  font-family: 'Poppins', sans-serif;
+  border: none !important;
+}
+
+.toast-header {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.toast-body {
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.toast-success {
+  background-color: #0B7A75 !important;
+  color: #f0f3f5;
+}
+
+.toast-body-success {
+  background-color: #efffef !important;
+  color: #31572c;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+}
+
+
+.toast-danger {
+  background-color: #ce4257 !important;
+  color: #ffad72;
+}
+
+.toast-body-danger {
+  background-color: #ffefef !important;
+  color: #720026;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+}

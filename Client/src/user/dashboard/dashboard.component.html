@@ -1,0 +1,150 @@
+<div class="container-fluid main-page m-0 p-0">
+  <app-toast></app-toast>
+  <app-progress-modal [msg]="prgMsg" [prgBtnTxt]="'Cancel'" (btnClick)="cancelTicket()"
+                      [showBtn]="true" [warn]="true"></app-progress-modal>
+  <div class="d-flex align-items-start h-100">
+    <div class="nav pt-5 px-3 flex-column nav-pills me-3 w-100" id="v-pills-tab" role="tablist"
+         aria-orientation="vertical">
+      <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home"
+              type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">
+        <i class="fa-solid fa-house"></i>&nbsp; Home
+      </button>
+      <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile"
+              type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+        <i class="fa-solid fa-ticket"></i>&nbsp; My Tickets
+      </button>
+      <div class="log-container">
+        <span class="log-info mb-2">logged in as <b>{{user.name}}</b></span>
+        <button class="btn btn-sm btn-warning mb-3 fw-bold w-50" (click)="onLogout()">
+          <i class="fa-solid fa-right-from-bracket"></i>&nbsp; Logout
+        </button>
+      </div>
+
+    </div>
+    <div class="tab-content w-100" id="v-pills-tabContent">
+      <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"
+           tabindex="0">
+        <div class="container d-flex flex-column justify-content-center align-items-center">
+          <div class="search-container w-50 p-3 mt-4">
+            <form class="d-flex flex-row position-relative" (ngSubmit)="onSearch()">
+              <input type="search" class="form-control" id="example-search-input" placeholder="search trains by name"
+                     name="searchTxt"
+                     [(ngModel)]="searchTxt" (change)="onSearch()">
+              <button class="btn btn-outline-primary border-0 position-absolute end-0" type="submit">
+                <i class="fa fa-search"></i> Search
+              </button>
+            </form>
+          </div>
+
+          <div class="trains-container">
+            <ng-container *ngIf="availableTrains.length>=1;else noTrains">
+              <ng-container *ngFor="let t of availableTrains">
+                <div class="card m-1 mb-3 p-3 shadow" *ngIf="t.status">
+                  <div class="row">
+                    <div class="col-12">
+                      <span class="h-text fw-bold">Train ID:</span> <span class="a-text">{{t.trainID}}</span>
+                    </div>
+                    <div class="col-12">
+                      <span class="h-text fw-bold">Train Name:</span><span class="a-text">{{t.name}}</span></div>
+                    <div class="col-6">
+                      <span class="h-text fw-bold">Start Location:</span> <span class="a-text">{{t.start}}</span>
+                    </div>
+                    <div class="col-6">
+                      <span class="h-text fw-bold">Destination:</span><span class="a-text">{{t.destination}}</span>
+                    </div>
+                    <div class="col-6">
+                      <span class="h-text fw-bold">Start Time:</span>
+                      <span class="a-text">{{t.startTime | date:'medium'}}</span>
+                    </div>
+                    <div class="col-6">
+                      <span class="h-text fw-bold">Destination Time:</span> <span
+                      class="a-text">{{t.endTime | date:'medium'}}</span>
+                    </div>
+                    <div class="col-6">
+                      <span class="h-text fw-bold">Ticket Fare:</span> <span
+                      class="a-text">{{t.ticketFare | currency:'₹ '}}</span>
+                    </div>
+                    <div class="col-6">
+                      <span class="h-text fw-bold">Journey:</span> <span
+                      class="a-text"><b>{{t.stops}}</b> stops in <b>{{t.journeyTime}}</b> Hr</span>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center align-items-center mt-3 mb-2">
+                      <button class="btn btn-sm btn-outline-success" (click)="bookTicket(t)">Book Ticket</button>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+
+            </ng-container>
+            <ng-template #noTrains>
+              <span class="text-danger mt-5">no available trains</span>
+            </ng-template>
+          </div>
+
+        </div>
+      </div>
+      <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"
+           tabindex="0">
+        <div class="container d-flex flex-column justify-content-center align-items-center">
+          <div class="tickets-container">
+            <ng-container *ngIf="tickets.length>=1;else noTickets">
+              <ng-container *ngFor="let t of tickets">
+                <div class="card m-1 mb-3 p-3 shadow" [class.bg-warning-subtle]="!t.train?.status">
+                  <div class="row">
+                    <div class="col-12 text-center text-danger fw-bold py-1" *ngIf="!t.train?.status">
+                      Train Cancelled
+                    </div>
+                    <div class="col-12">
+                      <span class="h-text fw-bold">Ticket ID:</span> <span class="a-text">{{t._id}}</span>
+                    </div>
+                    <div class="col-6">
+                      <span class="h-text fw-bold">Train Name:</span><span class="a-text">{{t.train?.name}}</span></div>
+                    <div class="col-6">
+                      <span class="h-text fw-bold">Train ID:</span> <span class="a-text">{{t.train?.trainID}}</span>
+                    </div>
+                    <div class="col-6">
+                      <span class="h-text fw-bold">Start Location:</span> <span class="a-text">{{t.train?.start}}</span>
+                    </div>
+                    <div class="col-6">
+                      <span class="h-text fw-bold">Destination:</span><span
+                      class="a-text">{{t.train?.destination}}</span>
+                    </div>
+                    <div class="col-6">
+                      <span class="h-text fw-bold">Start Time:</span>
+                      <span class="a-text">{{t.train?.startTime | date:'medium'}}</span>
+                    </div>
+                    <div class="col-6">
+                      <span class="h-text fw-bold">Destination Time:</span> <span
+                      class="a-text">{{t.train?.endTime | date:'medium'}}</span>
+                    </div>
+                    <div class="col-6">
+                      <span class="h-text fw-bold">Ticket Fare:</span> <span
+                      class="a-text">{{t.train?.ticketFare | currency:'₹ '}}</span>
+                    </div>
+                    <div class="col-6">
+                      <span class="h-text fw-bold">Journey:</span> <span
+                      class="a-text"><b>{{t.train?.stops}}</b> stops <b>{{t.train?.journeyTime}}</b> Hr</span>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center align-items-center mt-3 mb-2">
+                      <button class="btn btn-sm btn-outline-danger" (click)="onCancelTicket(t)">Cancel Ticket</button>
+                    </div>
+                    <div class="small-text text-end">
+                      {{t.bookedAt | date:'medium'}}
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+
+            </ng-container>
+            <ng-template #noTickets>
+              <span class="text-danger mt-5">No Tickets booked</span>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+</div>
